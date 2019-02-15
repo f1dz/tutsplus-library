@@ -1,0 +1,34 @@
+extends layout
+ 
+block content
+  .row
+    .col-md-12
+      h1 Add Book
+      form(method="POST", action="/books/add")
+        .form-group
+          label.col-lg-2.control-label Name
+          .col-lg-10
+            input.form-control(type="text", name='name')
+        .form-group
+          label.col-lg-2.control-label Author
+          .col-lg-10
+            input.form-control(type="text", name='author')
+        .form-group
+          label.col-lg-2.control-label Book Description
+          .col-lg-10
+            textarea#textArea.form-control(rows='3', name='description')
+        .form-group
+          label.col-lg-2.control-label Genre
+          .col-lg-10
+            for genre in genres
+              .checkbox
+                input.checkbox(type='checkbox', name='genre', id=genre._id, value=genre._id, checked=genre.checked)
+                label(for=genre._id) #{genre.name}
+        .form-group
+          .col-lg-10.col-lg-offset-2
+            input.button.btn.btn-primary(type='submit', value='Submit')
+       
+      if errors
+        ul
+          for error in errors
+            li!= error.msg
